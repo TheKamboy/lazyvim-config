@@ -13,19 +13,19 @@ return {
         end,
         desc = "Edgy Toggle",
       },
-    -- stylua: ignore
-    { "<leader>uE", function() require("edgy").select() end, desc = "Edgy Select Window" },
+      -- stylua: ignore
+      { "<leader>uE", function() require("edgy").select() end, desc = "Edgy Select Window" },
     },
     opts = function()
       local opts = {
         bottom = {
-          -- {
-          --   ft = "toggleterm",
-          --   size = { height = 0.4 },
-          --   filter = function(buf, win)
-          --     return vim.api.nvim_win_get_config(win).relative == ""
-          --   end,
-          -- },
+          {
+            ft = "toggleterm",
+            size = { height = 0.5 },
+            filter = function(buf, win)
+              return vim.api.nvim_win_get_config(win).relative == ""
+            end,
+          },
           {
             ft = "noice",
             size = { height = 0.4 },
@@ -36,13 +36,13 @@ return {
           {
             ft = "lazyterm",
             title = "LazyTerm",
-            size = { height = 0.4 },
+            size = { height = 0.5 },
             filter = function(buf)
               return not vim.b[buf].lazyterm_cmd
             end,
           },
           "Trouble",
-          { ft = "qf", title = "QuickFix" },
+          { ft = "qf",                title = "QuickFix" },
           {
             ft = "help",
             size = { height = 20 },
@@ -51,7 +51,7 @@ return {
               return vim.bo[buf].buftype == "help"
             end,
           },
-          { title = "Spectre", ft = "spectre_panel", size = { height = 0.4 } },
+          --{ title = "Spectre", ft = "spectre_panel", size = { height = 0.4 } },
           { title = "Neotest Output", ft = "neotest-output-panel", size = { height = 15 } },
         },
         left = {
@@ -109,5 +109,25 @@ return {
       }
       return opts
     end,
+  },
+
+  -- icon picker
+  {
+    "ziontee113/icon-picker.nvim",
+    version = false,
+    opts = {
+      disable_legacy_commands = true,
+    },
+  },
+
+  {
+    "NeogitOrg/neogit",
+    dependencies = {
+      "nvim-lua/plenary.nvim",         -- required
+      "nvim-telescope/telescope.nvim", -- optional
+      "sindrets/diffview.nvim",        -- optional
+      "ibhagwan/fzf-lua",              -- optional
+    },
+    config = true,
   },
 }
