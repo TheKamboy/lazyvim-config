@@ -5,5 +5,8 @@ return {
     markdown = {
       fat_headline_lower_string = "▔",
     },
+    norg = {
+      fat_headline_lower_string = "▔",
+    },
   },
 }

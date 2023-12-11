@@ -42,7 +42,7 @@ return {
             end,
           },
           "Trouble",
-          { ft = "qf",                title = "QuickFix" },
+          { ft = "qf", title = "QuickFix" },
           {
             ft = "help",
             size = { height = 20 },
@@ -123,11 +123,80 @@ return {
   {
     "NeogitOrg/neogit",
     dependencies = {
-      "nvim-lua/plenary.nvim",         -- required
+      "nvim-lua/plenary.nvim", -- required
       "nvim-telescope/telescope.nvim", -- optional
-      "sindrets/diffview.nvim",        -- optional
-      "ibhagwan/fzf-lua",              -- optional
+      "sindrets/diffview.nvim", -- optional
+      "ibhagwan/fzf-lua", -- optional
     },
     config = true,
+  },
+
+  -- for some reason lazyvim doesn't auto install this
+  { "codota/tabnine-nvim", build = "./dl_binaries.sh" },
+
+  -- or this
+  {
+    "tzachar/cmp-tabnine",
+    build = "./install.sh",
+    dependencies = "hrsh7th/nvim-cmp",
+    opts = {
+      max_lines = 1000,
+      max_num_results = 3,
+      sort = true,
+    },
+  },
+
+  -- Fix luasnip keeping check events
+  {
+    "L3MON4D3/LuaSnip",
+    build = (not jit.os:find("Windows"))
+        and "echo 'NOTE: jsregexp is optional, so not a big deal if it fails to build'; make install_jsregexp"
+      or nil,
+    dependencies = {
+      "rafamadriz/friendly-snippets",
+      config = function()
+        require("luasnip.loaders.from_vscode").lazy_load()
+      end,
+    },
+    opts = {
+      history = true,
+      region_check_events = "InsertEnter",
+      delete_check_events = "InsertLeave",
+    },
+  -- stylua: ignore
+  keys = {
+    {
+      "<tab>",
+      function()
+        return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>"
+      end,
+      expr = true, silent = true, mode = "i",
+    },
+    { "<tab>", function() require("luasnip").jump(1) end, mode = "s" },
+    { "<s-tab>", function() require("luasnip").jump(-1) end, mode = { "i", "s" } },
+  },
+  },
+
+  {
+    "nvim-neorg/neorg",
+    build = ":Neorg sync-parsers",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require("neorg").setup({
+        load = {
+          ["core.defaults"] = {}, -- Loads default behaviour
+          ["core.concealer"] = {}, -- Adds pretty icons to your documents
+          ["core.dirman"] = { -- Manages Neorg workspaces
+            config = {
+              workspaces = {
+                notes = "~/notes",
+              },
+            },
+          },
+          ["core.integrations.treesitter"] = {},
+          ["core.export"] = {},
+        },
+      })
+    end,
   },
 }

@@ -16,18 +16,32 @@ vim.keymap.set("n", "U", "<cmd>redo<cr>", { desc = "Redo", silent = true })
 -- Github CLI Commands
 wk.register({
   gt = {
-    name = "CLI",
+    name = "Git TUIs",
   },
 }, { prefix = "<leader>" })
 
-vim.keymap.set("n", "<leader>gtd",
-  function() Util.terminal({ "gh", "dash" }, { cwd = Util.root(), esc_esc = false, ctrl_hjkl = false }) end,
-  { desc = "Github Dash" })
+wk.register({
+  t = {
+    name = "TUIs",
+  },
+}, { prefix = "<leader>" })
 
-vim.keymap.set("n", "<leader>gtt",
-  function() Util.terminal({ "gum-ghtidy" }, { cwd = Util.root(), esc_esc = false, ctrl_hjkl = false }) end,
-  { desc = "Github Tidy" })
+vim.keymap.set("n", "<leader>gtd", function()
+  Util.terminal({ "gh", "dash" }, { cwd = Util.root(), esc_esc = false, ctrl_hjkl = false })
+end, { desc = "Github Dash" })
 
-vim.keymap.set("n", "<leader>gts",
-  function() Util.terminal({ "soft" }, { cwd = Util.root(), esc_esc = false, ctrl_hjkl = false }) end,
-  { desc = "Soft Serve Local" })
+vim.keymap.set("n", "<leader>gtt", function()
+  Util.terminal({ "gum-ghtidy" }, { cwd = Util.root(), esc_esc = false, ctrl_hjkl = false })
+end, { desc = "Github Tidy" })
+
+vim.keymap.set("n", "<leader>gts", function()
+  Util.terminal({ "soft" }, { cwd = Util.root(), esc_esc = false, ctrl_hjkl = false })
+end, { desc = "Soft Serve Local" })
+
+vim.keymap.set("n", "<leader>tg", function()
+  Util.terminal({ "glow" }, { cwd = Util.root(), esc_esc = false, ctrl_hjkl = false })
+end, { desc = "Glow" })
+
+vim.keymap.set("n", "<leader>fT", function()
+  Util.terminal({ os.getenv("SHELL") }, { cwd = Util.root() })
+end, { desc = "Terminal (float)" })

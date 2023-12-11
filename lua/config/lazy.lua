@@ -10,22 +10,37 @@ vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 require("lazy").setup({
   spec = {
     -- add LazyVim and import its plugins
-    { "LazyVim/LazyVim",                                    import = "lazyvim.plugins" },
-    -- import any extras modules here
-    -- { import = "lazyvim.plugins.extras.lang.typescript" },
-    -- { import = "lazyvim.plugins.extras.lang.json" },
-    -- import/override with your plugins
+    { "LazyVim/LazyVim", import = "lazyvim.plugins" },
+
+    -- VSCode
+    { import = "lazyvim.plugins.extras.vscode" },
+
+    -- UI
     { import = "lazyvim.plugins.extras.ui.edgy" },
     { import = "lazyvim.plugins.extras.ui.mini-animate" },
-    { import = "lazyvim.plugins.extras.vscode" },
+
+    -- Language
+    { import = "lazyvim.plugins.extras.lang.json" },
+    { import = "lazyvim.plugins.extras.lang.typescript" },
     { import = "lazyvim.plugins.extras.lang.markdown" },
     { import = "lazyvim.plugins.extras.lang.python" },
     { import = "lazyvim.plugins.extras.lang.rust" },
     { import = "lazyvim.plugins.extras.lang.go" },
-    { import = "lazyvim.plugins.extras.coding.codeium" },
+    { import = "lazyvim.plugins.extras.lang.tailwind" },
+    -- { import = "lazyvim.plugins.extras.coding.codeium" },
+
+    -- Coding
+    { import = "lazyvim.plugins.extras.coding.tabnine" },
+
+    -- Formatting
     { import = "lazyvim.plugins.extras.formatting.prettier" },
+
+    -- Editor
     { import = "lazyvim.plugins.extras.editor.navic" },
     { import = "plugins" },
+
+    -- Util
+    { import = "lazyvim.plugins.extras.util.project" },
   },
   defaults = {
     -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
