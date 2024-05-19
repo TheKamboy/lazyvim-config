@@ -1,4 +1,4 @@
->[!WARN]
+> [!WARNING]
 > This config is dead. New link coming soon
 
 # 💤 LazyVim Config
